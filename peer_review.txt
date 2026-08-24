@@ -1,0 +1,27 @@
+# Week 3 Peer Pod Code Review
+
+## 1. API Error Handling
+- The API request uses a timeout to prevent an indefinite wait.
+- `raise_for_status()` catches unsuccessful HTTP responses.
+- `try/except` handles request and response-processing failures.
+- The function returns an empty DataFrame when the API cannot be used, allowing the pipeline to report the issue rather than silently failing.
+
+**Overall assessment:** Robust and appropriate for the assignment.
+
+## 2. SQL JOIN Logic
+- The `Operations` and `Holiday_Calendar` tables are joined using the shared `date` key.
+- The query uses an explicit `JOIN` and groups by date and calendar classification.
+- `COUNT()` and `AVG()` provide useful operational summaries.
+- `pd.read_sql()` loads the SQL result directly into a Pandas DataFrame.
+
+**Overall assessment:** Correct and easy to follow.
+
+## 3. Final Merged Dataset
+- The internal CSV, SQL result and API weather data are merged using the common date key.
+- `validate="many_to_one"` is used for date-level sources to catch unexpected duplicate keys.
+- Missing values are checked after integration and handled explicitly.
+
+**Overall assessment:** Clear multi-source integration with appropriate validation.
+
+## Suggested improvement
+For a production pipeline, I would add automated tests for API schema changes and monitor the freshness of external weather data.
